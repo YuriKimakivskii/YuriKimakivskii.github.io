@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>0</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="readout">
+            <div class="readout-num">Відлік пішов</div>
+            <div class="readout-num">1</div>
+            <div class="readout-num">2</div>
+            <div class="readout-num">3</div>
+            <div class="readout-num">4</div>
+            <div class="readout-num">5</div>
+        </div>
+        <div class="content">
+            <div class="content-header">
+                WARNING
+            </div>
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/364978098_818859179641878_5655996863157324241_n.jpg?stp=dst-jpg_p320x320&_nc_cat=101&ccb=1-7&_nc_sid=510075&_nc_ohc=3qyBjW3BZcMAX8rWsi8&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQ8iYBXRlQQ45PHNKC2BjVmG8YZ_reC6P0sBhr-8Ngn6w&oe=650036A2"
+                alt="" srcset="" class="content-image">
+            <div class="content-subheader">
+                ВЛАСНІСТЬ
+                МАРИНИ СОМИК
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Отримати елементи лічильника та контенту
+        const readout = document.querySelector('.readout');
+        const readoutNums = document.querySelectorAll('.readout-num');
+        const content = document.querySelector('.content');
+
+        // Початкове значення лічильника
+        let count = 0;
+
+        // Функція для оновлення значень лічильника
+        function updateCounter() {
+    readout.classList.add('show', 'fade-in');
+    if (count > 0) {
+        readoutNums[count - 1].classList.remove('show', 'fade-out'); // Видалити класи show і fade-out
+    }
+    if (count < readoutNums.length) {
+        readoutNums[count].classList.add('show', 'fade-in'); // Додати класи show і fade-in
+        count++;
+        setTimeout(() => {
+            readoutNums[count - 1].classList.remove('fade-in'); // Після анімації видалити клас fade-in
+            updateCounter(); // Викликати наступний крок
+        }, 1000); // Затримка 1 секунда між анімаціями
+    } else {
+        readout.classList.remove('fade-in');
+        readout.classList.add('fade-out');
+        setTimeout(() => {
+            readout.classList.remove('show');
+            readout.classList.remove('fade-out');
+
+            // Після закінчення лічильника, показати блок .content та інші елементи
+            const contentBlock = document.querySelector('.content');
+            contentBlock.style.visibility = 'visible';
+            const contentElements = document.querySelectorAll('.content');
+            contentElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('show', 'fade-in');
+                }, index * 500); // Затримка 200 мілісекунд між показами елементів
+            });
+        }, 1000);
+    }
+}
+
+// Запуск оновлення лічильника
+setTimeout(updateCounter, 2000); // Затримка у 2 секунди перед початком лічильника
+    </script>
+
+</body>
+
+</html>
